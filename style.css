@@ -2,6 +2,19 @@ body {
     height: 100vh;
     width: 100vw;
 }
+
+header {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header div, header input {
+    height: 10vw;
+    width: 10vw;
+}
+
 main {
     height: 95%;
     display: flex;
@@ -10,11 +23,19 @@ main {
 }
 
 .pixel {
-    background-color: blue;
+    
+}
+
+.pixel-wide {
+    
+}
+
+.pixel-high {
+    
 }
 
 .pixel:hover {
-    background-color: salmon;
+    cursor: pointer;
 }
 
 #canvas {
