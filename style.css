@@ -1,6 +1,9 @@
 body {
     height: 100vh;
     width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center  ;
 }
 
 header {
@@ -11,27 +14,22 @@ header {
 }
 
 header div, header input {
+    max-height: 80px;
+    max-width: 80px;
     height: 10vw;
     width: 10vw;
 }
 
 main {
-    height: 95%;
+    height: 85vh;
+    width: 85vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.pixel {
-    
-}
-
-.pixel-wide {
-    
-}
-
-.pixel-high {
-    
+.hidden {
+    display: none;
 }
 
 .pixel:hover {
