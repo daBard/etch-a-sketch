@@ -1,8 +1,8 @@
 // DOM ELEMENTS
 const docMain = document.querySelector('main');
 const docCanvas = document.querySelector('#canvas');
-const docColDiv = document.querySelectorAll('header div');
-const docColInput = document.querySelectorAll('header input');
+const docColDiv = document.querySelectorAll('#palette div');
+const docColInput = document.querySelectorAll('#palette input');
 
 // VARIABLES
 let canvasX = 16;
@@ -24,7 +24,7 @@ window.addEventListener('resize', () => setCanvasSize());
 for (i=0; i < docColDiv.length; i++) {
     // DIVS
     docColDiv[i].style.cssText = `background-color: ${ docColInput[i].value };`;
-    docColDiv[i].addEventListener('click', function(e){
+    docColDiv[i].addEventListener('click', function(e) {
         for (j=0; j < docColDiv.length; j++) {
             docColInput[j].classList.add('hidden');
             docColDiv[j].classList.remove('hidden');
@@ -37,8 +37,14 @@ for (i=0; i < docColDiv.length; i++) {
         drawCol = docColInput[target].value;
     });
 
-    // INPUTS    
+    // INPUTS 
     // event listener onchange of color, change drawcol
+    docColInput[i].addEventListener('input', function(e) {
+        let target = e.target.id.slice(-1);
+        
+        docColDiv[target].style.cssText = `background-color: ${ docColInput[target].value };`;
+        drawCol = docColInput[target].value;
+    });
 }
 
 // INITIALIZE PAINTABLE CANVAS
@@ -107,14 +113,4 @@ function setCanvasSize() {
 }
 
 // editable size https://www.w3schools.com/cssref/tryit.asp?filename=trycss_js_grid-template-columns
-// event listeners for colDiv and colInputs
-
-// COLORS
-// background-color: black;
-// background-color: blue;
-// background-color: red;
-// background-color: magenta;
-// background-color: lime;
-// background-color: cyan;
-// background-color: yellow;
-// background-color: white;
+// grid overlay https://onagova.github.io/etch-a-sketch/

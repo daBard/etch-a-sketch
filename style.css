@@ -13,11 +13,21 @@ header {
     align-items: center;
 }
 
-header div, header input {
+#palette {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#palette div, #palette input {
     max-height: 80px;
     max-width: 80px;
     height: 10vw;
     width: 10vw;
+}
+
+#palette div {
+    border: 1px solid #333;
 }
 
 main {
