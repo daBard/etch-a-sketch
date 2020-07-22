@@ -3,7 +3,8 @@ body {
     width: 100vw;
     display: flex;
     flex-direction: column;
-    align-items: center  ;
+    align-items: center;
+    background-color: #cecece;
 }
 
 header {
@@ -19,14 +20,20 @@ header {
     align-items: center;
 }
 
-#palette div, #palette input {
+.palette {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.palette div, .palette input {
     max-height: 80px;
     max-width: 80px;
     height: 10vw;
     width: 10vw;
 }
 
-#palette div {
+.palette div {
     border: 1px solid #333;
 }
 
@@ -51,4 +58,5 @@ main {
     border: 3px double black;
     display: grid;
     grid-template-columns: repeat(16, 1fr);
+    background-color: #fff;
 }

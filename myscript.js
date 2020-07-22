@@ -1,8 +1,8 @@
 // DOM ELEMENTS
 const docMain = document.querySelector('main');
 const docCanvas = document.querySelector('#canvas');
-const docColDiv = document.querySelectorAll('#palette div');
-const docColInput = document.querySelectorAll('#palette input');
+const docColDiv = document.querySelectorAll('.palette div');
+const docColInput = document.querySelectorAll('.palette input');
 
 // VARIABLES
 let canvasX = 16;
@@ -114,3 +114,5 @@ function setCanvasSize() {
 
 // editable size https://www.w3schools.com/cssref/tryit.asp?filename=trycss_js_grid-template-columns
 // grid overlay https://onagova.github.io/etch-a-sketch/
+// clear button
+// save button (save div as image)???
