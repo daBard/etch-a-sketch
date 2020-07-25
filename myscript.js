@@ -3,6 +3,10 @@ const docMain = document.querySelector('main');
 const docCanvas = document.querySelector('#canvas');
 const docColDiv = document.querySelectorAll('.palette div');
 const docColInput = document.querySelectorAll('.palette input');
+const docMenuTgl = document.querySelectorAll('#menu-tgl');
+const docSaveBtn = document.querySelectorAll('#save-btn');
+const docClearBtn = document.querySelectorAll('#clear-btn');
+const docSizeBtn = document.querySelectorAll('#size-btn');
 
 // VARIABLES
 let canvasX = 16;
@@ -10,9 +14,7 @@ let canvasY = 16;
 let pixelSize;
 
 let isDrawing = false;
-let col1 = docColInput[0].value;
-let col2 = docColInput[1].value;
-let drawCol = col1;
+let drawCol = docColInput[0].value;
 
 //If drawing outside and mouse-up, stop drawing
 docMain.addEventListener('mouseup', function() { isDrawing = false; });
@@ -116,3 +118,4 @@ function setCanvasSize() {
 // grid overlay https://onagova.github.io/etch-a-sketch/
 // clear button
 // save button (save div as image)???
+// menu show/hide
