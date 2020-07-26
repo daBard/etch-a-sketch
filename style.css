@@ -20,6 +20,17 @@ main {
     align-items: center;
 }
 
+article {
+    max-width: 45vw;
+    background-color: whitesmoke;
+    color: #333;
+    font-size: 1.25em;
+    line-height: 1.15;
+    padding: 5vw;
+    border: 5px solid #333;
+    /*border-radius: 5px;*/
+}
+
 /* CLASSES */
 .flx-ctr {
     display: flex;
@@ -52,11 +63,26 @@ main {
     cursor: crosshair;
 }
 
+.blocker {
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column {
+    flex-direction: column;
+}
+
 /* ID:S */
 #menu-tgl {
     margin: 5px 0;
     font-weight: 900;
-    cursor: row-resize;
+    cursor: pointer;
 }
 
 #clear-btn {
@@ -69,8 +95,17 @@ main {
 
 #canvas {
     padding: 2px;
-    border: 3px double black;
+    border: 3px double #333;
     display: grid;
     grid-template-columns: repeat(16, 1fr);
     background-color: #fff;
+}
+
+/* RESIZE BOX */
+.resize-y-n {
+    margin-top: 20px;
+}
+
+#resize-y {
+    cursor: pointer;
 }

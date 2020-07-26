@@ -56,7 +56,7 @@
                 <input id="col-in-7" class="hidden header-btn" type="color" value="#ffffff">
             </div>
         </div>
-        <div id="menu-tgl">Menu▼ Menu▲</div>
+        <div id="menu-tgl">▼Menu</div>
         <div id=menu class="flx-ctr">
             <div id="save-btn" class="btn-border flx-ctr header-btn">
                 <div id="save-txt">Save<br>image</div>
@@ -73,6 +73,25 @@
     <main>
         <div id="canvas"></div>
     </main>
+
+    <div id="set-size" class="hidden">
+        <article>
+            <div>WARNING! Resizing your canvas will erase your current work!</div>
+            <div class="flx-ctr">
+                <div class="flx-ctr column">
+                    <label for="size-x">Horizontal:</label>
+                    <label for="size-y">Vertical:</label>
+                </div>
+                <div class="flx-ctr column">
+                    <input type="number" id="size-x" value="16" min="1" max="64">
+                    <input type="number" id="size-y" value="16" min="1" max="64">
+                </div>
+            </div>
+            <div class="flx-ctr column resize-y-n">
+                <div id="resize-y" class="pointer">RESIZE</div>
+            </div>
+        </article>
+    </div>
 
     <script src="myscript.js"></script>
 

@@ -3,10 +3,15 @@ const docMain = document.querySelector('main');
 const docCanvas = document.querySelector('#canvas');
 const docColDiv = document.querySelectorAll('.palette div');
 const docColInput = document.querySelectorAll('.palette input');
-const docMenuTgl = document.querySelectorAll('#menu-tgl');
-const docSaveBtn = document.querySelectorAll('#save-btn');
-const docClearBtn = document.querySelectorAll('#clear-btn');
-const docSizeBtn = document.querySelectorAll('#size-btn');
+const docMenuTgl = document.querySelector('#menu-tgl');
+const docMenu = document.querySelector('#menu');
+const docSaveBtn = document.querySelector('#save-btn');
+const docClearBtn = document.querySelector('#clear-btn');
+const docSizeBtn = document.querySelector('#size-btn');
+const docSizeBox = document.querySelector('#set-size');
+const docSizeX = document.querySelector('#size-x');
+const docSizeY = document.querySelector('#size-y');
+const docResizeY = document.querySelector('#resize-y');
 
 // VARIABLES
 let canvasX = 16;
@@ -16,11 +21,51 @@ let pixelSize;
 let isDrawing = false;
 let drawCol = docColInput[0].value;
 
+// INITIALIZE FIRST CANVAS
+initCanvas();
+setCanvasSize();
+
 //If drawing outside and mouse-up, stop drawing
 docMain.addEventListener('mouseup', function() { isDrawing = false; });
 
 // RESET CANVAS SIZE IF WINDOW RESIZE
 window.addEventListener('resize', () => setCanvasSize());
+
+// SHOW/HIDE MENU
+docMenuTgl.addEventListener('click', function() {
+    docMenu.classList.toggle('hidden');
+    if (docMenu.classList.contains('hidden')) {
+        docMenuTgl.textContent = '▼Menu';
+    }
+    else {
+        docMenuTgl.textContent = '▲Menu';
+    }
+});
+
+// RESIZE CANVAS
+docSizeBtn.addEventListener('click', function() {
+    docSizeBox.classList.toggle('blocker');
+    docSizeBox.classList.toggle('hidden');
+});
+
+docSizeBox.addEventListener('click', function(e){
+    if (docSizeBox == e.target) {
+        docSizeBox.classList.toggle('blocker');
+        docSizeBox.classList.toggle('hidden');
+    }
+});
+
+docResizeY.addEventListener('click', function() {
+    canvasX = docSizeX.value;
+    canvasY = docSizeY.value;
+    console.log(canvasX + ', ' + canvasY);
+    //wipe all pixels
+    //set css grid (maybe inside initCanvas?)
+    initCanvas();
+    setCanvasSize();
+    docSizeBox.classList.toggle('blocker');
+    docSizeBox.classList.toggle('hidden');
+});
 
 // INITIALIZE PALETTE
 for (i=0; i < docColDiv.length; i++) {
@@ -50,43 +95,43 @@ for (i=0; i < docColDiv.length; i++) {
 }
 
 // INITIALIZE PAINTABLE CANVAS
-for (i=0; i < canvasY; i++) {
-    for (j=0; j < canvasX; j++) {
-        let docDiv = document.createElement('div');
-        docDiv.classList.add('pixel');
+function initCanvas() {
+    for (i=0; i < canvasY; i++) {
+        for (j=0; j < canvasX; j++) {
+            let docDiv = document.createElement('div');
+            docDiv.classList.add('pixel');
 
-        let currentPixelColor;
+            let currentPixelColor;
 
-        docDiv.addEventListener('mouseover', function() {
-            if (isDrawing == true) {
+            docDiv.addEventListener('mouseover', function() {
+                if (isDrawing == true) {
+                    this.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
+                    currentPixelColor = drawCol;
+                }
+                else {
+                    this.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
+                }   
+            });
+
+            docDiv.addEventListener('mouseout', function() {
+                this.style.cssText = `background-color: ${ currentPixelColor }; ${ pixelSize }`;
+            });
+
+            docDiv.addEventListener('mousedown', function(e) {
+                e.preventDefault();
                 this.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
                 currentPixelColor = drawCol;
-            }
-            else {
-                this.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
-            }   
-        });
+                isDrawing = true;
+            });
 
-        docDiv.addEventListener('mouseout', function() {
-            this.style.cssText = `background-color: ${ currentPixelColor }; ${ pixelSize }`;
-        });
+            docDiv.addEventListener('mouseup', function() {
+                isDrawing = false;
+            });
 
-        docDiv.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            this.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
-            currentPixelColor = drawCol;
-            isDrawing = true;
-        });
-
-        docDiv.addEventListener('mouseup', function() {
-            isDrawing = false;
-        });
-
-        docCanvas.appendChild(docDiv);
+            docCanvas.appendChild(docDiv);
+        }
     }
 }
-
-setCanvasSize();
 
 // CALCULATE CANVAS AND PIXEL SIZE
 function setCanvasSize() {
@@ -118,4 +163,4 @@ function setCanvasSize() {
 // grid overlay https://onagova.github.io/etch-a-sketch/
 // clear button
 // save button (save div as image)???
-// menu show/hide
+// accordion menu
