@@ -56,31 +56,38 @@ docSizeBox.addEventListener('click', function(e){
     }
 });
 
-docResizeY.addEventListener('click', function() {
-        let pixels = document.querySelectorAll('.pixel');
-        let sugCanvasX = parseInt(docSizeX.value);
-        let sugCanvasY = parseInt(docSizeY.value);
+docSizeX.addEventListener('keyup', function(e) {
+    if (e.keyCode === 13) { resizeCanvas(); }
+});
+docSizeY.addEventListener('keyup', function(e) {
+    if (e.keyCode === 13) { resizeCanvas(); }
+});
+docResizeY.addEventListener('click', function() { resizeCanvas() });
 
-        if ((sugCanvasX > 0 && sugCanvasX <= 64) && (sugCanvasY > 0 && sugCanvasY <= 64)) {
+function resizeCanvas() {
+    let pixels = document.querySelectorAll('.pixel');
+    let sugCanvasX = parseInt(docSizeX.value);
+    let sugCanvasY = parseInt(docSizeY.value);
+
+    if ((sugCanvasX > 0 && sugCanvasX <= 64) && (sugCanvasY > 0 && sugCanvasY <= 64)) {
+        if(confirm('WARNING!\nResizing the canvas will erase your current work!')) {
             canvasX = sugCanvasX;
             canvasY = sugCanvasY;
-        }
-        else {
-            alert('Please pick a size between 1-64 pixels!');
-        }
+        
+            for (i=0; i < pixels.length; i++) {
+                pixels[i].parentNode.removeChild(pixels[i]);
+            }
     
-        for (i=0; i < pixels.length; i++) {
-            pixels[i].parentNode.removeChild(pixels[i]);
+            initCanvas();
+            setCanvasSize();
+            docSizeBox.classList.toggle('blocker');
+            docSizeBox.classList.toggle('hidden');
         }
-
-        initCanvas();
-        setCanvasSize();
-        docSizeBox.classList.toggle('blocker');
-        docSizeBox.classList.toggle('hidden');
-
-        //THIS IS CRAP AT THE MOMENT, FIX IT STUPID!
-        //if(confirm('WARNING!\nResizing the canvas will erase your current work!')) {
-});
+    }
+    else {
+        alert('Please pick a size between 1-64 pixels!');
+    }
+}
 
 // INITIALIZE PALETTE
 for (i=0; i < docColDiv.length; i++) {

@@ -102,10 +102,20 @@ article {
 }
 
 /* RESIZE BOX */
-.resize-y-n {
+#size-labels {
+    display: flex; 
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.top20 {
     margin-top: 20px;
 }
 
 #resize-y {
     cursor: pointer;
+}
+
+#resize-y:hover {
+    font-weight: 900;
 }
