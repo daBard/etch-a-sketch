@@ -97,7 +97,7 @@ article {
     padding: 2px;
     border: 3px double #333;
     display: grid;
-    grid-template-columns: repeat(16, 1fr);
+    /*grid-template-columns: repeat(16, 1fr);*/
     background-color: #fff;
 }
 
