@@ -34,12 +34,15 @@ window.addEventListener('resize', () => setCanvasSize());
 
 // SHOW/HIDE MENU
 docMenuTgl.addEventListener('click', function() {
-    docMenu.classList.toggle('hidden');
-    if (docMenu.classList.contains('hidden')) {
+    //docMenu.classList.toggle('hidden');
+    //if (docMenu.classList.contains('hidden')) {
+    if (docMenu.style.maxHeight == '80px') {
         docMenuTgl.textContent = '▼Menu';
+        docMenu.style.maxHeight = '0px';
     }
     else {
         docMenuTgl.textContent = '▲Menu';
+        docMenu.style.maxHeight = '80px';
     }
 });
 
@@ -188,3 +191,4 @@ function setCanvasSize() {
 // clear button
 // save button (save div as image)???
 // accordion menu
+// touch functionality
