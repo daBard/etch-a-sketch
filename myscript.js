@@ -6,6 +6,7 @@ const docColInput = document.querySelectorAll('.palette input');
 const docMenuTgl = document.querySelector('#menu-tgl');
 const docMenu = document.querySelector('#menu');
 const docSaveBtn = document.querySelector('#save-btn');
+const docGridBtn = document.querySelector('#grid-btn');
 const docClearBtn = document.querySelector('#clear-btn');
 const docSizeBtn = document.querySelector('#size-btn');
 const docSizeBtnText = document.querySelector('#size-txt');
@@ -18,6 +19,8 @@ const docResizeY = document.querySelector('#resize-y');
 let canvasX = 16;
 let canvasY = 16;
 let pixelSize;
+
+let grid = false;
 
 let isDrawing = false;
 let drawCol = docColInput[0].value;
@@ -36,14 +39,67 @@ window.addEventListener('resize', () => setCanvasSize());
 docMenuTgl.addEventListener('click', function() {
     //docMenu.classList.toggle('hidden');
     //if (docMenu.classList.contains('hidden')) {
-    if (docMenu.style.maxHeight == '80px') {
+    if (docMenu.style.maxHeight == '82px') {
         docMenuTgl.textContent = '▼Menu';
         docMenu.style.maxHeight = '0px';
     }
     else {
         docMenuTgl.textContent = '▲Menu';
-        docMenu.style.maxHeight = '80px';
+        docMenu.style.maxHeight = '82px';
     }
+    for (i = 1; i < 25; i++) {
+        setTimeout(setCanvasSize, i);
+    }  
+});
+
+// GRID BUTTON
+docGridBtn.addEventListener('click', function() {
+    let pixels = document.querySelectorAll('.pixel');
+
+    grid = !grid;
+
+    for (i = 0; i < pixels.length; i++) {
+        for (j = 0; j < canvasX; j++) {
+            for (k = 0; k < canvasY; k++) {
+                if (grid) {
+                    if (k != canvasX - 1) {
+                         pixels[i].classList.add('cell-border-right');
+                    }
+
+                    if (j != canvasY - 1) {
+                        pixels[i].classList.add('cell-border-bottom');
+                    }
+                }
+                else {
+                    if (k != canvasX - 1) {
+                        pixels[i].classList.remove('cell-border-right');
+                    }
+
+                    if (j != canvasY - 1) {
+                        pixels[i].classList.remove('cell-border-bottom');
+                    }
+                }
+            }
+        }
+    }
+
+    setCanvasSize();
+});
+
+// CLEAR BUTTON
+docClearBtn.addEventListener('click', function() {
+    if(confirm('WARNING!\nClearing the canvas will erase your current work!')) {
+     
+        let pixels = document.querySelectorAll('.pixel');
+
+        for (i=0; i < pixels.length; i++) {
+            pixels[i].parentNode.removeChild(pixels[i]);
+        }
+
+        initCanvas();
+        setCanvasSize();
+    }
+
 });
 
 // RESIZE CANVAS
@@ -154,6 +210,17 @@ function initCanvas() {
                 isDrawing = false;
             });
 
+            if (grid) {
+                if (j != canvasX - 1) {
+                    docPixel.classList.add('cell-border-right');
+                }
+    
+                if (i != canvasY - 1) {
+                    docPixel.classList.add('cell-border-bottom');
+                }
+            }
+            
+
             docCanvas.appendChild(docPixel);
         }
     }
@@ -187,8 +254,5 @@ function setCanvasSize() {
 
 }
 
-// grid overlay https://onagova.github.io/etch-a-sketch/
-// clear button
 // save button (save div as image)???
-// accordion menu
 // touch functionality

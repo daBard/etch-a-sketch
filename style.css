@@ -78,6 +78,14 @@ article {
     flex-direction: column;
 }
 
+.cell-border-right {
+    border-right: 1px dotted rgb(200, 200, 200);
+}
+
+.cell-border-bottom {
+    border-bottom: 1px dotted rgb(200, 200, 200);
+}
+
 /* ID:S */
 #menu-tgl {
     margin: 5px 0;
@@ -91,11 +99,11 @@ article {
     transition: max-height 0.3s ease-out;
 }
 
-#clear-btn {
-    margin: 0 5px;
+#save-btn, #grid-btn, #clear-btn {
+    margin-right: 5px;
 }
 
-#save-txt, #size-txt {
+#save-txt, #size-txt, #grid-txt {
     text-align: center;
 }
 
