@@ -52,6 +52,21 @@ docMenuTgl.addEventListener('click', function() {
     }  
 });
 
+// SAVE BUTTON (DOM-TO-IMAGE)
+docSaveBtn.addEventListener('click', function(){
+// remove grid
+//remove frame
+
+    domtoimage.toBlob(docCanvas)
+    .then(function (blob) {
+        saveAs(blob, 'my-sketch.png');
+    });
+
+//return grid
+//return frame
+
+});
+
 // GRID BUTTON
 docGridBtn.addEventListener('click', function() {
     let pixels = document.querySelectorAll('.pixel');
@@ -102,7 +117,7 @@ docClearBtn.addEventListener('click', function() {
 
 });
 
-// RESIZE CANVAS
+// RESIZE CANVAS BUTTON
 docSizeBtn.addEventListener('click', function() {
     docSizeBox.classList.toggle('blocker');
     docSizeBox.classList.toggle('hidden');
