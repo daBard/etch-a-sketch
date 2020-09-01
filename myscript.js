@@ -15,7 +15,7 @@ const docSizeX = document.querySelector('#size-x');
 const docSizeY = document.querySelector('#size-y');
 const docResizeY = document.querySelector('#resize-y');
 
-// VARIABLES
+// GLOBAL VARIABLES
 let canvasX = 16;
 let canvasY = 16;
 let pixelSize;
@@ -54,23 +54,30 @@ docMenuTgl.addEventListener('click', function() {
 
 // SAVE BUTTON (DOM-TO-IMAGE)
 docSaveBtn.addEventListener('click', function(){
-// remove grid
-//remove frame
+    docCanvas.classList.toggle('frame');
+    if (grid) {
+        toggleGrid();
+        saveToImage();   //WHY THE HELL DOES THE GRID AND FRAME STILL SHOW IN THE IMAGE????
+        toggleGrid();
+    }
+    else if (!grid) {
+        saveToImage();
+    }
+    docCanvas.classList.toggle('frame');
+});
 
+function saveToImage() {
     domtoimage.toBlob(docCanvas)
     .then(function (blob) {
         saveAs(blob, 'my-sketch.png');
     });
-
-//return grid
-//return frame
-
-});
+}
 
 // GRID BUTTON
-docGridBtn.addEventListener('click', function() {
-    let pixels = document.querySelectorAll('.pixel');
+docGridBtn.addEventListener('click', function(){ toggleGrid() });
 
+function toggleGrid() {
+    let pixels = document.querySelectorAll('.pixel');
     grid = !grid;
 
     for (i = 0; i < pixels.length; i++) {
@@ -99,7 +106,7 @@ docGridBtn.addEventListener('click', function() {
     }
 
     setCanvasSize();
-});
+}
 
 // CLEAR BUTTON
 docClearBtn.addEventListener('click', function() {
@@ -269,5 +276,4 @@ function setCanvasSize() {
 
 }
 
-// save button (save div as image)???
 // touch functionality

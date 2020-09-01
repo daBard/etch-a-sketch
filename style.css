@@ -86,6 +86,11 @@ article {
     border-bottom: 1px dotted rgb(200, 200, 200);
 }
 
+.frame {
+    padding: 2px;
+    border: 3px double #333;
+}
+
 /* ID:S */
 #menu-tgl {
     margin: 5px 0;
@@ -108,8 +113,6 @@ article {
 }
 
 #canvas {
-    padding: 2px;
-    border: 3px double #333;
     display: grid;
     /*grid-template-columns: repeat(16, 1fr);*/
     background-color: #fff;
