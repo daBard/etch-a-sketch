@@ -108,7 +108,7 @@ article {
     margin-right: 5px;
 }
 
-#save-txt, #size-txt, #grid-txt {
+#save-txt, #grid-txt, #clear-txt, #size-txt {
     text-align: center;
 }
 
@@ -135,4 +135,10 @@ article {
 
 #resize-y:hover {
     font-weight: 900;
+}
+
+@media only screen and (max-width: 450px) {
+    #save-txt, #grid-txt, #clear-txt, #size-txt {
+        font-size: 10px;
+    }
 }

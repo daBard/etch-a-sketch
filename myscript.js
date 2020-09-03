@@ -53,31 +53,35 @@ docMenuTgl.addEventListener('click', function() {
 });
 
 // SAVE BUTTON (DOM-TO-IMAGE)
-docSaveBtn.addEventListener('click', function(){
+docSaveBtn.addEventListener('click', async function() {
+    let _grid = grid;
+
     docCanvas.classList.toggle('frame');
-    if (grid) {
-        toggleGrid();
-        saveToImage();   //WHY THE HELL DOES THE GRID AND FRAME STILL SHOW IN THE IMAGE????
-        toggleGrid();
-    }
-    else if (!grid) {
-        saveToImage();
-    }
+    if (_grid) { toggleGrid(docCanvas); }
+    await saveToImage();
     docCanvas.classList.toggle('frame');
+    if (_grid) { toggleGrid(docCanvas); }
+
+    //VERSION WITH CLONE, DOMTOIMAGE WON'T ACCEPT CLONED NODE
+    /*let clone = docCanvas.cloneNode(true);
+    
+    clone.classList.toggle('frame');
+    if (_grid) { toggleGrid(clone); }
+    await saveToImage(clone);*/
 });
 
-function saveToImage() {
-    domtoimage.toBlob(docCanvas)
-    .then(function (blob) {
-        saveAs(blob, 'my-sketch.png');
+async function saveToImage() {
+    await domtoimage.toBlob(docCanvas)
+    .then(async function (blob) {
+        await saveAs(blob, 'my-sketch.png');
     });
 }
 
 // GRID BUTTON
-docGridBtn.addEventListener('click', function(){ toggleGrid() });
+docGridBtn.addEventListener('click', function(){ toggleGrid(docCanvas) });
 
-function toggleGrid() {
-    let pixels = document.querySelectorAll('.pixel');
+function toggleGrid(canvas) {
+    let pixels = canvas.querySelectorAll('.pixel');
     grid = !grid;
 
     for (i = 0; i < pixels.length; i++) {
