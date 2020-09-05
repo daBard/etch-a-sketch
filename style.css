@@ -119,6 +119,10 @@ article {
 }
 
 /* RESIZE BOX */
+#set-size input {
+    width: 95%;
+}
+
 #size-labels {
     display: flex; 
     flex-direction: column;

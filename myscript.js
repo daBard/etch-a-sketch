@@ -39,11 +39,11 @@ window.addEventListener('resize', () => setCanvasSize());
 // SHOW/HIDE MENU WITH TRANSITION ON MAXHEIGHT
 docMenuTgl.addEventListener('click', function() {
     if (docMenu.style.maxHeight == '82px') {
-        docMenuTgl.textContent = '▼Menu';
+        docMenuTgl.innerHTML = '&#9660;Menu';
         docMenu.style.maxHeight = '0px';
     }
     else {
-        docMenuTgl.textContent = '▲Menu';
+        docMenuTgl.innerHTML = '&#9650;Menu';
         docMenu.style.maxHeight = '82px';
     }
     for (i = 1; i < 25; i++) {
