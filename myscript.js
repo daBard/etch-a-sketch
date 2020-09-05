@@ -26,19 +26,18 @@ let isDrawing = false;
 let drawCol = docColInput[0].value;
 
 // INITIALIZE FIRST CANVAS
+initPalette();
 initCanvas();
 setCanvasSize();
 
-//If drawing outside and mouse-up, stop drawing
-docMain.addEventListener('mouseup', function() { isDrawing = false; });
+//If drawing outside canvas and mouseup, stop drawing
+document.addEventListener('mouseup', function() { isDrawing = false; });
 
 // RESET CANVAS SIZE IF WINDOW RESIZE
 window.addEventListener('resize', () => setCanvasSize());
 
-// SHOW/HIDE MENU
+// SHOW/HIDE MENU WITH TRANSITION ON MAXHEIGHT
 docMenuTgl.addEventListener('click', function() {
-    //docMenu.classList.toggle('hidden');
-    //if (docMenu.classList.contains('hidden')) {
     if (docMenu.style.maxHeight == '82px') {
         docMenuTgl.textContent = '▼Menu';
         docMenu.style.maxHeight = '0px';
@@ -49,7 +48,7 @@ docMenuTgl.addEventListener('click', function() {
     }
     for (i = 1; i < 25; i++) {
         setTimeout(setCanvasSize, i);
-    }  
+    }
 });
 
 // SAVE BUTTON (DOM-TO-IMAGE)
@@ -125,7 +124,6 @@ docClearBtn.addEventListener('click', function() {
         initCanvas();
         setCanvasSize();
     }
-
 });
 
 // RESIZE CANVAS BUTTON
@@ -175,30 +173,32 @@ function resizeCanvas() {
 }
 
 // INITIALIZE PALETTE
-for (i=0; i < docColDiv.length; i++) {
-    // DIVS
-    docColDiv[i].style.cssText = `background-color: ${ docColInput[i].value };`;
-    docColDiv[i].addEventListener('click', function(e) {
-        for (j=0; j < docColDiv.length; j++) {
-            docColInput[j].classList.add('hidden');
-            docColDiv[j].classList.remove('hidden');
-        }
-
-        let target = e.target.id.slice(-1);
-        
-        docColDiv[target].classList.toggle('hidden');
-        docColInput[target].classList.toggle('hidden');
-        drawCol = docColInput[target].value;
-    });
-
-    // INPUTS 
-    // event listener onchange of color, change drawcol
-    docColInput[i].addEventListener('input', function(e) {
-        let target = e.target.id.slice(-1);
-        
-        docColDiv[target].style.cssText = `background-color: ${ docColInput[target].value };`;
-        drawCol = docColInput[target].value;
-    });
+function initPalette() {
+    for (i=0; i < docColDiv.length; i++) {
+        // DIVS
+        docColDiv[i].style.cssText = `background-color: ${ docColInput[i].value };`;
+        docColDiv[i].addEventListener('click', function(e) {
+            for (j=0; j < docColDiv.length; j++) {
+                docColInput[j].classList.add('hidden');
+                docColDiv[j].classList.remove('hidden');
+            }
+    
+            let target = e.target.id.slice(-1);
+            
+            docColDiv[target].classList.toggle('hidden');
+            docColInput[target].classList.toggle('hidden');
+            drawCol = docColInput[target].value;
+        });
+    
+        // INPUTS 
+        // event listener onchange of color, change drawcol
+        docColInput[i].addEventListener('input', function(e) {
+            let target = e.target.id.slice(-1);
+            
+            docColDiv[target].style.cssText = `background-color: ${ docColInput[target].value };`;
+            drawCol = docColInput[target].value;
+        });
+    }
 }
 
 // INITIALIZE PAINTABLE CANVAS
@@ -211,6 +211,7 @@ function initCanvas() {
 
             let currentPixelColor;
 
+            //MOUSE
             docPixel.addEventListener('mouseover', function() {
                 if (isDrawing == true) {
                     this.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
@@ -232,7 +233,26 @@ function initCanvas() {
                 isDrawing = true;
             });
 
-            docPixel.addEventListener('mouseup', function() {
+            //TOUCH
+            docPixel.addEventListener('touchstart', () => {
+                docPixel.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
+                isDrawing = true;
+            });
+
+            docPixel.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                let myLocation = e.changedTouches[0];
+                let realTarget = document.elementFromPoint(myLocation.clientX, myLocation.clientY);
+                
+                if (realTarget.classList.contains('pixel')) {
+                    realTarget.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
+                } else {
+                    isDrawing = false;
+                }
+                
+            });
+
+            docPixel.addEventListener('touchend', function() {
                 isDrawing = false;
             });
 
@@ -245,8 +265,6 @@ function initCanvas() {
                     docPixel.classList.add('cell-border-bottom');
                 }
             }
-            
-
             docCanvas.appendChild(docPixel);
         }
     }
@@ -271,13 +289,8 @@ function setCanvasSize() {
 
     pixelSize = `height: ${ size }px; width: ${ size }px;`;
     
-    
-
     for (i=0; i < pixels.length; i++) {
         bgCol = window.getComputedStyle(pixels[i]).getPropertyValue('background-color');
         pixels[i].style.cssText = `background-color: ${ bgCol }; ${ pixelSize }`;
     }
-
 }
-
-// touch functionality
