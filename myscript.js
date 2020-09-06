@@ -14,6 +14,8 @@ const docSizeBox = document.querySelector('#set-size');
 const docSizeX = document.querySelector('#size-x');
 const docSizeY = document.querySelector('#size-y');
 const docResizeY = document.querySelector('#resize-y');
+const docAboutBtn = document.querySelector('#about-btn');
+const docAboutBox = document.querySelector('#about');
 
 // GLOBAL VARIABLES
 let canvasX = 16;
@@ -46,9 +48,7 @@ docMenuTgl.addEventListener('click', function() {
         docMenuTgl.innerHTML = '&#9650;Menu';
         docMenu.style.maxHeight = '82px';
     }
-    for (i = 1; i < 25; i++) {
-        setTimeout(setCanvasSize, i);
-    }
+    setTimeout(setCanvasSize, 320);
 });
 
 // SAVE BUTTON (DOM-TO-IMAGE)
@@ -128,13 +128,13 @@ docClearBtn.addEventListener('click', function() {
 
 // RESIZE CANVAS BUTTON
 docSizeBtn.addEventListener('click', function() {
-    docSizeBox.classList.toggle('blocker');
+    //docSizeBox.classList.toggle('blocker');
     docSizeBox.classList.toggle('hidden');
 });
 
 docSizeBox.addEventListener('click', function(e){
     if (docSizeBox == e.target) {
-        docSizeBox.classList.toggle('blocker');
+        //docSizeBox.classList.toggle('blocker');
         docSizeBox.classList.toggle('hidden');
     }
 });
@@ -163,7 +163,7 @@ function resizeCanvas() {
     
             initCanvas();
             setCanvasSize();
-            docSizeBox.classList.toggle('blocker');
+            //docSizeBox.classList.toggle('blocker');
             docSizeBox.classList.toggle('hidden');
         }
     }
@@ -171,6 +171,20 @@ function resizeCanvas() {
         alert('Please pick a size between 1-64 pixels!');
     }
 }
+
+// ABOUT BUTTON
+docAboutBtn.addEventListener('click', () => {
+        //docAboutBox.classList.toggle('blocker');
+        docAboutBox.classList.toggle('hidden');
+    });
+    
+docAboutBox.addEventListener('click', (e) => {
+    if (docAboutBox == e.target) {
+        //docAboutBox.classList.toggle('blocker');
+        docAboutBox.classList.toggle('hidden');
+    }
+});
+
 
 // INITIALIZE PALETTE
 function initPalette() {
@@ -200,6 +214,16 @@ function initPalette() {
         });
     }
 }
+
+// HEX TO RGB CONVERSION
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
 
 // INITIALIZE PAINTABLE CANVAS
 function initCanvas() {
@@ -245,7 +269,7 @@ function initCanvas() {
                 let realTarget = document.elementFromPoint(myLocation.clientX, myLocation.clientY);
                 
                 if (realTarget.classList.contains('pixel')) {
-                    realTarget.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
+                  realTarget.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
                 } else {
                     isDrawing = false;
                 }

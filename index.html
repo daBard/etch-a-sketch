@@ -8,7 +8,7 @@
     <!-- VIEWPORT -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <!-- FAVICONS 
+    <!-- FAVICONS -->
     <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-icon-72x72.png">
@@ -25,7 +25,7 @@
     <link rel="manifest" href="favicons/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="favicons/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">-->
+    <meta name="theme-color" content="#ffffff">
 
     <!-- CSS -->
     <link rel = "stylesheet" type = "text/css" href = "reset.css" />
@@ -70,6 +70,9 @@
             <div id="size-btn" class="btn-border flx-ctr header-btn">
                 <div id="size-txt">Size:<br>16x16</div>
             </div>
+            <div id="about-btn" class="btn-border flx-ctr header-btn">
+                <div id="about-txt">About</div>
+            </div>
         </div>
     </header>
 
@@ -77,7 +80,7 @@
         <div id="canvas" class="frame"></div>
     </main>
 
-    <div id="set-size" class="hidden">
+    <div id="set-size" class="blocker hidden">
         <article>
             <div>Please pick a size between 1 and 64 pixels:</div>
             <div class="flx-ctr top20">
@@ -96,8 +99,14 @@
         </article>
     </div>
 
-    <script src="libraries/FileSaver.js/dist/FileSaver.min.js"></script>
+    <div id="about" class="blocker hidden">
+        <article>
+            <div>This simple pixel art tool was made by Couchveggie as an assignment in <a href='https://www.theodinproject.com/'>The Odin Project</a>.</div>
+        </article>
+    </div>
+
     <script src="libraries/dom-to-image/dist/dom-to-image.min.js"></script>
+    <script src="libraries/FileSaver.js/dist/FileSaver.min.js"></script>
     <script src="myscript.js"></script>
 
 </body>
