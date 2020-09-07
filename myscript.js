@@ -253,15 +253,17 @@ function initCanvas() {
             });
 
             //TOUCH
-            docPixel.addEventListener('touchstart', () => {
-                docPixel.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
-                isDrawing = true;
+            docPixel.addEventListener('touchstart', (e) => {
+                if (e.touches.length == 1) {
+                    docPixel.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
+                    isDrawing = true;
+                }
             });
 
             docPixel.addEventListener('touchmove', function(e) {
                 let drawColRgb = hexToRgb(drawCol);
                 
-                if (e.changedTouches.length < 2) {
+                if (e.touches.length == 1) {
                     e.preventDefault();
                     let myLocation = e.changedTouches[0];
                     let realTarget = document.elementFromPoint(myLocation.clientX, myLocation.clientY);
