@@ -83,31 +83,26 @@ function toggleGrid(canvas) {
     let pixels = canvas.querySelectorAll('.pixel');
     grid = !grid;
 
+    console.log(canvasX + " " + canvasY)
+
     for (i = 0; i < pixels.length; i++) {
-        for (j = 0; j < canvasX; j++) {
-            for (k = 0; k < canvasY; k++) {
-                if (grid) {
-                    if (k != canvasX - 1) {
-                         pixels[i].classList.add('cell-border-right');
-                    }
-
-                    if (j != canvasY - 1) {
-                        pixels[i].classList.add('cell-border-bottom');
-                    }
+        if (grid) {
+           if ((i % canvasX) != (canvasX - 1)) {
+               pixels[i].classList.add('cell-border-right');
+            }
+            if (i < canvasX * (canvasY - 1)) {
+                pixels[i].classList.add('cell-border-bottom');
+            }
+        } 
+        else {
+            if ((i % canvasX) != (canvasX - 1)) {
+                pixels[i].classList.remove('cell-border-right');
                 }
-                else {
-                    if (k != canvasX - 1) {
-                        pixels[i].classList.remove('cell-border-right');
-                    }
-
-                    if (j != canvasY - 1) {
-                        pixels[i].classList.remove('cell-border-bottom');
-                    }
-                }
+            if (i < canvasX * (canvasY - 1)) {
+                    pixels[i].classList.remove('cell-border-bottom');
             }
         }
     }
-
     setCanvasSize();
 }
 
@@ -264,16 +259,22 @@ function initCanvas() {
             });
 
             docPixel.addEventListener('touchmove', function(e) {
-                e.preventDefault();
-                let myLocation = e.changedTouches[0];
-                let realTarget = document.elementFromPoint(myLocation.clientX, myLocation.clientY);
+                let drawColRgb = hexToRgb(drawCol);
                 
-                if (realTarget.classList.contains('pixel')) {
-                  realTarget.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
-                } else {
+                if (e.changedTouches.length < 2) {
+                    e.preventDefault();
+                    let myLocation = e.changedTouches[0];
+                    let realTarget = document.elementFromPoint(myLocation.clientX, myLocation.clientY);
+                    
+                    if (realTarget.classList.contains('pixel') && realTarget.style.backgroundColor != `rgb(${drawColRgb.r}, ${drawColRgb.g}, ${drawColRgb.b})`) {
+                        realTarget.style.cssText = `background-color: ${ drawCol }; ${ pixelSize }`;
+                    } else {
+                        isDrawing = false;
+                    }
+                }
+                else {
                     isDrawing = false;
                 }
-                
             });
 
             docPixel.addEventListener('touchend', function() {
